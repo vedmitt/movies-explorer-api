@@ -12,6 +12,17 @@
 
 IP 84.201.133.63
 
-Frontend [https://mymesto.nomoredomains.work](https://mymesto.nomoredomains.work)
+Frontend [https://movie-explorer.nomoredomains.xyz](https://movie-explorer.nomoredomains.xyz)
 
-Backend [https://api.mymesto.nomoredomains.work](https://api.mymesto.nomoredomains.work)
+Backend [https://api.mymovie-explorer.nomoredomains.xyz](https://api.mymovie-explorer.nomoredomains.xyz)
+
+## Чтобы запустить локально
+
+1. Переименуйте `.env.example` в `.env`.
+2. установите зависимости:
+`npm install` 
+
+4. Затем запустите сервер:
+`npm run start` 
+или в режиме разработки:
+`npm run dev`
