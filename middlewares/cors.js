@@ -1,7 +1,7 @@
 // Массив доменов, с которых разрешены кросс-доменные запросы
 const allowedCors = [
   'https://movie-explorer.nomoredomains.xyz',
-  'http://movie-explorer.nomoredomains.xyz',
+  'https://api.mymovie-explorer.nomoredomains.xyz',
   'http://localhost:3000',
   'http://localhost:3001',
 ];
