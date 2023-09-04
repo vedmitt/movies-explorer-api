@@ -5,6 +5,7 @@ const User = require('../models/user');
 const BadRequestError = require('../errors/bad-request-err');
 const ConflictError = require('../errors/conflict-err');
 const NotFoundError = require('../errors/not-found-err');
+const { userBadRequestMessage, userConflictMessage, userTokenSuccessMessage, userNotFoundMessage, userUpdateValidationMessage } = require('../utils/constants');
 
 const CREATED_CODE = 201;
 
@@ -30,9 +31,9 @@ module.exports.createUser = (req, res, next) => {
     })
     .catch((err) => {
       if (err.name === 'ValidationError') {
-        next(new BadRequestError('Некорректные данные при создании пользователя'));
+        next(new BadRequestError(userBadRequestMessage));
       } else if (err.code === 11000) {
-        next(new ConflictError('Данный email уже зарегистрирован'));
+        next(new ConflictError(userConflictMessage));
       } else {
         next(err);
       }
@@ -51,14 +52,14 @@ module.exports.login = (req, res, next) => {
           httpOnly: true,
           sameSite: true,
         });
-      res.send({ message: 'токен создан и записан в куки' });
+      res.send({ message: userTokenSuccessMessage });
     })
     .catch(next);
 };
 
 module.exports.getCurrentUser = (req, res, next) => {
   User.findById(req.user._id)
-    .orFail(new NotFoundError('Пользователь по указанному id не найден'))
+    .orFail(new NotFoundError(userNotFoundMessage))
     .then((user) => {
       res.send({ data: user });
     })
@@ -76,13 +77,13 @@ module.exports.updateUserInfo = (req, res, next) => {
       runValidators: true,
     },
   )
-    .orFail(new NotFoundError('Пользователь по указанному id не найден'))
+    .orFail(new NotFoundError(userNotFoundMessage))
     .then((user) => {
       res.send({ data: user });
     })
     .catch((err) => {
       if (err.name === 'ValidationError') {
-        next(new BadRequestError('Некорректные данные при обновлении данных пользователя'));
+        next(new BadRequestError(userUpdateValidationMessage));
       } else {
         next(err);
       }

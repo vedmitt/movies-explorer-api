@@ -3,29 +3,30 @@ const validator = require('validator');
 const bcrypt = require('bcryptjs');
 
 const UnauthorizedError = require('../errors/unauthorized-err');
+const { authInvalidCredentialsMessage, modelRequiredField, modelInvalidField, minLengthField, maxLengthField } = require('../utils/constants');
 
-const AUTH_ERROR = new UnauthorizedError('Неправильные почта или пароль');
+const AUTH_ERROR = new UnauthorizedError(authInvalidCredentialsMessage);
 
 const userSchema = new mongoose.Schema({
   email: {
     type: String,
-    required: [true, 'Поле "email" должно быть заполнено'],
+    required: [true, modelRequiredField],
     unique: true,
     validate: {
       validator: (v) => validator.isEmail(v),
-      message: 'Неправильный формат почты',
+      message: modelInvalidField,
     },
   },
   password: {
     type: String,
-    required: [true, 'Поле "password" должно быть заполнено'],
+    required: [true, modelRequiredField],
     select: false,
   },
   name: {
     type: String,
-    required: [true, 'Поле "name" должно быть заполнено'],
-    minlength: [2, 'Минимальная длина поля "name" - 2'],
-    maxlength: [30, 'Максимальная длина поля "name" - 30'],
+    required: [true, modelRequiredField],
+    minlength: [2, minLengthField],
+    maxlength: [30, maxLengthField],
   },
 }, { versionKey: false });
 

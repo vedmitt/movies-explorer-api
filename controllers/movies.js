@@ -2,6 +2,7 @@ const Movie = require('../models/movie');
 const BadRequestError = require('../errors/bad-request-err');
 const NotFoundError = require('../errors/not-found-err');
 const ForbiddenError = require('../errors/forbidden-err');
+const { movieValidationMessage, movieForbiddenMessage, movieNotFoundMessage } = require('../utils/constants');
 
 const CREATED_CODE = 201;
 
@@ -43,7 +44,7 @@ module.exports.createMovie = (req, res, next) => {
     .then((movie) => res.status(CREATED_CODE).send({ data: movie }))
     .catch((err) => {
       if (err.name === 'ValidationError') {
-        next(new BadRequestError('Некорректные данные при создании фильма'));
+        next(new BadRequestError(movieValidationMessage));
       } else {
         next(err);
       }
@@ -52,7 +53,7 @@ module.exports.createMovie = (req, res, next) => {
 
 module.exports.removeMovieById = (req, res, next) => {
   Movie.findById(req.params.movieId)
-    .orFail(new NotFoundError('Фильм с указанным id не найден'))
+    .orFail(new NotFoundError(movieNotFoundMessage))
     .then((movie) => {
       if (movie.owner.toString() === req.user._id) {
         Movie.deleteOne(movie._id)
@@ -60,7 +61,7 @@ module.exports.removeMovieById = (req, res, next) => {
             res.send({ data: removedMovie });
           }).catch(next);
       } else {
-        throw new ForbiddenError('Чужой фильм нельзя удалить!');
+        throw new ForbiddenError(movieForbiddenMessage);
       }
     })
     .catch(next);

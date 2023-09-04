@@ -1,10 +1,23 @@
 const router = require('express').Router();
 
-const { validateUserName } = require('../middlewares/validations');
+const auth = require('../middlewares/auth');
+const { createUser, login } = require('../controllers/users');
+const { validateUserName, validateUserBody, validateAuthentication } = require('../middlewares/validations');
 const { getCurrentUser, updateUserInfo } = require('../controllers/users');
 
-router.get('/me', getCurrentUser);
+router.post('/signup', validateUserBody, createUser);
 
-router.patch('/me', validateUserName, updateUserInfo);
+router.post('/signin', validateAuthentication, login);
+
+router.get('/signout', (req, res) => {
+  res.clearCookie('jwt').send({ message: 'Выход' });
+});
+
+// авторизация
+router.use(auth);
+
+router.get('/users/me', getCurrentUser);
+
+router.patch('/users/me', validateUserName, updateUserInfo);
 
 module.exports = router;

@@ -10,9 +10,12 @@ const cors = require('./middlewares/cors');
 
 const config = require('./config');
 const { connectDatabase } = require('./db');
+const { serverCrashTestMessage } = require('./utils/constants');
+const { limiter } = require('./middlewares/ratelimiter');
 
 const app = express();
 
+app.use(limiter);
 app.use(helmet());
 app.disable('x-powered-by');
 
@@ -24,7 +27,7 @@ app.use(requestLogger); // подключаем логгер запросов
 // краш-тест
 app.get('/crash-test', () => {
   setTimeout(() => {
-    throw new Error('Сервер сейчас упадёт');
+    throw new Error(serverCrashTestMessage);
   }, 0);
 });
 

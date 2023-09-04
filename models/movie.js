@@ -1,50 +1,51 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
+const { modelRequiredField, modelInvalidField } = require('../utils/constants');
 
 const movieSchema = new mongoose.Schema({
   country: {
     type: String,
-    required: [true, 'Поле "country" должно быть заполнено'],
+    required: [true, modelRequiredField],
   },
   director: {
     type: String,
-    required: [true, 'Поле "director" должно быть заполнено'],
+    required: [true, modelRequiredField],
   },
   duration: {
     type: Number,
-    required: [true, 'Поле "duration" должно быть заполнено'],
+    required: [true, modelRequiredField],
   },
   year: {
     type: String,
-    required: [true, 'Поле "year" должно быть заполнено'],
+    required: [true, modelRequiredField],
   },
   description: {
     type: String,
-    required: [true, 'Поле "description" должно быть заполнено'],
+    required: [true, modelRequiredField],
   },
   image: {
     type: String,
     validate: {
       validator: (v) => validator.isURL(v),
-      message: 'Некорректный URL',
+      message: modelInvalidField,
     },
-    required: [true, 'Поле "image" должно быть заполнено'],
+    required: [true, modelRequiredField],
   },
   trailerLink: {
     type: String,
     validate: {
       validator: (v) => validator.isURL(v),
-      message: 'Некорректный URL',
+      message: modelInvalidField,
     },
-    required: [true, 'Поле "trailerLink" должно быть заполнено'],
+    required: [true, modelRequiredField],
   },
   thumbnail: {
     type: String,
     validate: {
       validator: (v) => validator.isURL(v),
-      message: 'Некорректный URL',
+      message: modelInvalidField,
     },
-    required: [true, 'Поле "thumbnail" должно быть заполнено'],
+    required: [true, modelRequiredField],
   },
   owner: {
     type: mongoose.Schema.Types.ObjectId,
