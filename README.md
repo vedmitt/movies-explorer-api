@@ -2,19 +2,22 @@
 
 Бэкенд для приложения проекта `Movies Explorer` со следующими возможностями: 
 - авторизации и регистрации пользователей, 
-- операции CRUD с фильмами и пользователями. 
-  
-Сайт размещен на Яндекс.Облаке.
+- операции CRUD с фильмами и пользователями.
 
-Адрес репозитория: [https://github.com/...](https://github.com/vedmitt/movies-explorer-api)
+### Стек технологий:
+- Express
+- MongoDB
+- NodeJS
+- API
+- Nginx
+- JWT
+- Postman
 
 ## Ссылки на проект
 
-IP 84.201.133.63
+Бэкенд: [https://github.com/...](https://github.com/vedmitt/movies-explorer-api)
 
-Frontend [https://movie-explorer.nomoredomains.xyz](https://movie-explorer.nomoredomains.xyz)
-
-Backend [https://api.mymovie-explorer.nomoredomains.xyz](https://api.mymovie-explorer.nomoredomains.xyz)
+Фронтенд: [https://github.com/...](https://github.com/vedmitt/movies-explorer-frontend)
 
 ## Чтобы запустить локально
 
@@ -26,3 +29,6 @@ Backend [https://api.mymovie-explorer.nomoredomains.xyz](https://api.mymovie-exp
 `npm run start` 
 или в режиме разработки:
 `npm run dev`
+
+5. В проекте используется MongoDB v.4.4. Пожалуйста, установите с официального сайта для корректной работы приложения.
+https://mongodb.prakticum-team.ru/
